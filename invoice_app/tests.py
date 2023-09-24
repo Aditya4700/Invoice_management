@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 from .models import Invoice, Invoice_Detail
-from .serializers import InvoiceSerializer, Invoice_DetailSerializer
+
 
 class InvoiceDetailViewTestCase(TestCase):
     def setUp(self):
@@ -13,7 +13,8 @@ class InvoiceDetailViewTestCase(TestCase):
             'Invoice_CustomerName': 'Aditya',
         }
         self.invoice = Invoice.objects.create(**self.invoice_data)
-        self.url = reverse('invoice-detail', kwargs={'pk': self.invoice.id})
+        self.url = reverse('invoice_detail', kwargs={'pk': self.invoice.id})  
+
 
     def test_retrieve_invoice_details(self):
         response = self.client.get(self.url)
@@ -51,7 +52,8 @@ class InvoiceDetailDetailViewTestCase(TestCase):
             'price': 159.90,
         }
         self.invoice_detail = Invoice_Detail.objects.create(**self.invoice_detail_data)
-        self.url = reverse('invoice-detail-detail', kwargs={'pk': self.invoice_detail.id})
+        self.url = reverse('invoice-detail-detail', kwargs={'pk': self.invoice_detail.id})  
+
 
     def test_retrieve_invoice_detail_details(self):
         response = self.client.get(self.url)
@@ -61,6 +63,9 @@ class InvoiceDetailDetailViewTestCase(TestCase):
         updated_data = {
             'description': 'Updated',
             'quantity': 20,
+            'unit_price': 15.99,  
+            'price': 159.90,      
+            'invoice': self.invoice.id 
         }
         response = self.client.put(self.url, updated_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from .serializers import *
 from .models import *
-from rest_framework import generics, status
-from rest_framework import response
+from rest_framework import generics
+
 
 
 class InvoiceList(generics.ListCreateAPIView):
