@@ -30,10 +30,10 @@ class InvoiceDetailViewTestCase(TestCase):
         self.assertEqual(response.data['Invoice_CustomerName'], 'Updated')
 
     def test_partial_update_invoice_details(self):
-        partial_data = {'Invoice_CustomerName': 'Partial Update Customer'}
+        partial_data = {'Invoice_CustomerName': 'New Update Customer'}
         response = self.client.patch(self.url, partial_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['Invoice_CustomerName'], 'Partial Update Customer')
+        self.assertEqual(response.data['Invoice_CustomerName'], 'New Update Customer')
 
     def test_delete_invoice_details(self):
         response = self.client.delete(self.url)
